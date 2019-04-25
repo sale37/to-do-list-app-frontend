@@ -25,6 +25,11 @@ class AuthService extends ApiService{
         this.api.removeHeaders(['Authorization']);
     };
 
+    listTodos = () => {
+        this.api.attachHeaders({Authorization: `Bearer ${localStorage.getItem('token')}`});
+        return this.apiClient.get('api/todos');
+    }
+
     checkAuth=()=>{
         const token = localStorage.getItem('token');
         if(!token){
