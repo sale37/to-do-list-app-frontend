@@ -29,7 +29,8 @@ import { authService } from './Services/AuthService';
           email: this.state.email,
           password: this.state.password
         }
-        authService.login(user);
+        authService.login(user).then(res => history.push('Home')).catch(res=>this.setState({loginError:true}));
+
       }
 
       hasErrorFor (field) {

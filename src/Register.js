@@ -21,7 +21,7 @@ import { authService } from './Services/AuthService';
         })
       }
 
-      handleCreateNewUser (event) {
+      handleCreateNewUser = (event) => {
         event.preventDefault()
 
         const { history } = this.props
@@ -33,7 +33,6 @@ import { authService } from './Services/AuthService';
         }
 
         authService.register(user);
-
       }
 
       hasErrorFor (field) {
@@ -60,7 +59,7 @@ import { authService } from './Services/AuthService';
                   <div className='card-body'>
                     <form onSubmit={this.handleCreateNewUser}>
                       <div className='form-group'>
-                        <label htmlFor='name'>User Name</label>
+                        <label htmlFor='name'>Full Name</label>
                         <input
                           id='name'
                           type='text'

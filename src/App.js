@@ -3,6 +3,9 @@ import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
+import { authService } from './Services/AuthService';
+import Home from './Home';
+
 
 class App extends Component {
   render () {
@@ -10,8 +13,13 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route exact path='/register' component={Register} />
+            {authService.checkAuth() ? ([
+            <Route exact path='/register' component={Register} />,
             <Route exact path='/login' component={Login} />
+            ]):(
+              <Route component={Home} />
+            )}
+            <Route exact path='/home' component={Home} />
           </Switch>
         </div>
       </BrowserRouter>
