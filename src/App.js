@@ -13,12 +13,8 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            {authService.checkAuth() ? ([
             <Route exact path='/register' component={Register} />,
             <Route exact path='/login' component={Login} />
-            ]):(
-              <Route component={Home} />
-            )}
             <Route exact path='/home' component={Home} />
           </Switch>
         </div>

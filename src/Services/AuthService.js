@@ -1,31 +1,39 @@
 import ApiService from "./ApiService";
+const ENDPOINTS = {REGISTER:'api/user',LOGIN:''}
 
 class AuthService extends ApiService{
 
-    register(registerDate){
-        this.apiClient.post('api/user', registerDate);
-    }
+    register = (registerData) =>{
+        return this.apiClient.post('api/user', registerData);
 
-    async login(registerDate){
+    };
+
+    async login(registerData){
         try{
-        const response = await this.apiClient.post('api/auth/login', registerDate);
-        this.api.attachHeaders({Authorization: 'Bearer ' + response.data.access_token});
+        const response = await this.apiClient.post('api/auth/login', registerData);
+        this.api.attachHeaders({Authorization: `Bearer ${response.data.access_token}`});
+        localStorage.setItem('token', response.data.access_token);
         return true;}
         catch{
             return false;
         }
-    }
+    };
 
-    checkAuth(){
+    async logout() {
+        await this.apiClient.post('api/auth/logout');
+        localStorage.removeItem('token');
+        this.api.removeHeaders(['Authorization']);
+    };
+
+    checkAuth=()=>{
         const token = localStorage.getItem('token');
-        const refreshToken = localStorage.getItem('refreshToken');
-        if(!token || !refreshToken){
-            return false
+        if(!token){
+            return true;
         }
-        return true;
+        return false;
       }
     
-}
+};
 
 
 export const authService = new AuthService();
