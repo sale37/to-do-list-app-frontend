@@ -36,13 +36,10 @@ class Register extends Component {
 
     authService
       .register(user)
-      .then(res => this.handleSuccessRegister())
+      .then(res => history.push("/login"))
       .catch(res => this.setState({ registerError: true }));
   };
 
-  handleSuccessRegister = () => {
-    this.props.history.push("/login");
-  };
 
   hasErrorFor(field) {
     return this.state.errors[field];
