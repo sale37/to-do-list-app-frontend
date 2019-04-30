@@ -26,7 +26,7 @@ class AuthService extends ApiService{
     };
 
     listTodos = () => {
-        this.api.attachHeaders({Authorization: `Bearer ${localStorage.getItem('token')}`});
+      
         return this.apiClient.get('api/todos');
     }
 
