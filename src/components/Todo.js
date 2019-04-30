@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { authService } from "./Services/AuthService";
+import { authService } from "../Services/AuthService";
 import UpdateTodo from './UpdateTodo';
 import { Link } from 'react-router-dom';
 

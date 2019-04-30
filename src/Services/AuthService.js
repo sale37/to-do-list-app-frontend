@@ -10,7 +10,6 @@ class AuthService extends ApiService{
 
     register = (registerData) =>{
         return this.apiClient.post('api/user', registerData);
-
     };
 
     async login(registerData){
@@ -30,6 +29,7 @@ class AuthService extends ApiService{
         localStorage.removeItem('token');
         this.api.removeHeaders(['Authorization']);
         }catch{
+            localStorage.removeItem('token');
             return false;
         }
     };
@@ -40,7 +40,6 @@ class AuthService extends ApiService{
 
     createTodo = (registerData) => {
         // this.api.attachHeaders({Authorization: `Bearer ${localStorage.getItem('token')}`});
-        console.log(registerData.data);
         return this.apiClient.post('api/todos', registerData);
     }
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { authService } from "./Services/AuthService";
+import { authService } from "../Services/AuthService";
 import { withRouter } from 'react-router-dom';
 
 

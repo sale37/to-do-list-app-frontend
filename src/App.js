@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import Register from './Register';
-import Login from './Login';
+import Register from './components/Register';
+import Login from './components/Login';
 import { authService } from './Services/AuthService';
-import Home from './Home';
-import CreateTodo from './CreateTodo';
-import Todo from './Todo';
-import UpdateTodo from './UpdateTodo';
+import Home from './components/Home';
+import CreateTodo from './components/CreateTodo';
+import Todo from './components/Todo';
+import UpdateTodo from './components/UpdateTodo';
 
 
 class App extends Component {

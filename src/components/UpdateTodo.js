@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import { authService } from "./Services/AuthService";
+import { authService } from "../Services/AuthService";
 
-class CreateTodo extends Component {
+class UpdateTodo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      description: "",
-      errors: [],
-      todoError: false
+      todo: {},
+      description: '',
+      errors: []
     };
     this.handleFieldChange = this.handleFieldChange.bind(this);
-    this.handleCreateNewTodo = this.handleCreateNewTodo.bind(this);
+    this.handleUpdateTodo = this.handleUpdateTodo.bind(this);
     this.hasErrorFor = this.hasErrorFor.bind(this);
     this.renderErrorFor = this.renderErrorFor.bind(this);
   }
@@ -21,17 +21,30 @@ class CreateTodo extends Component {
     });
   }
 
-  handleCreateNewTodo = event => {
+  componentDidMount() {
+    const todoId = this.props.match.params.id;
+    
+    authService.showTodo(todoId).then(response => {
+      this.setState({
+        todo: response.data,
+        description: response.data.description
+      });
+    });
+  }
+
+
+  handleUpdateTodo = event => {
     event.preventDefault();
 
     const { history } = this.props;
 
     const todo = {
+        id: this.state.todo.id,
         description: this.state.description
     };
 
     authService
-      .createTodo(todo)
+      .updateTodo(todo)
       .then(res => history.push("/home"))
       .catch(res => this.setState({ todoError: true }));
   };
@@ -57,9 +70,9 @@ class CreateTodo extends Component {
         <div className="row justify-content-center">
           <div className="col-md-6">
             <div className="card">
-              <div className="card-header">Create new todo</div>
+              <div className="card-header">Update todo</div>
               <div className="card-body">
-                <form onSubmit={this.handleCreateNewTodo}>
+                <form onSubmit={this.handleUpdateTodo}>
                   <div className="form-group">
                     <label htmlFor="name">Description</label>
                     <input
@@ -85,4 +98,4 @@ class CreateTodo extends Component {
   }
 }
 
-export default CreateTodo;
+export default UpdateTodo;

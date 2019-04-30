@@ -1,20 +1,19 @@
 import React, { Component } from "react";
-import { authService } from "./Services/AuthService";
-import { withRouter } from 'react-router-dom';
+import { authService } from "../Services/AuthService";
+import { withRouter } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-class Register extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
       email: "",
       password: "",
       errors: [],
-      registerError: false
+      loginError: false
     };
     this.handleFieldChange = this.handleFieldChange.bind(this);
-    this.handleCreateNewUser = this.handleCreateNewUser.bind(this);
+    this.handleLoginUser = this.handleLoginUser.bind(this);
     this.hasErrorFor = this.hasErrorFor.bind(this);
     this.renderErrorFor = this.renderErrorFor.bind(this);
   }
@@ -25,26 +24,21 @@ class Register extends Component {
     });
   }
 
-  handleCreateNewUser = event => {
+  handleLoginUser(event) {
     event.preventDefault();
 
     const { history } = this.props;
 
-    const user = {
-      name: this.state.name,
-      email: this.state.email,
-      password: this.state.password
-    };
+    const user = this.state;
 
     authService
-      .register(user)
-      .then(res => history.push("/login"))
-      .catch(res => this.setState({ registerError: true }));
-  };
-
+      .login(user)
+      .then(res => history.push("/home"))
+      .catch(res => this.setState({ loginError: true }));
+  }
 
   hasErrorFor(field) {
-    return this.state.errors[field];
+    return !!this.state.errors[field];
   }
 
   renderErrorFor(field) {
@@ -63,23 +57,9 @@ class Register extends Component {
         <div className="row justify-content-center">
           <div className="col-md-6">
             <div className="card">
-              <div className="card-header">Register</div>
+              <div className="card-header">Login</div>
               <div className="card-body">
-                <form onSubmit={this.handleCreateNewUser}>
-                  <div className="form-group">
-                    <label htmlFor="name">Full Name</label>
-                    <input
-                      id="name"
-                      type="text"
-                      className={`form-control ${
-                        this.hasErrorFor("name") ? "is-invalid" : ""
-                      }`}
-                      name="name"
-                      value={this.state.name}
-                      onChange={this.handleFieldChange}
-                    />
-                    {this.renderErrorFor("name")}
-                  </div>
+                <form onSubmit={this.handleLoginUser}>
                   <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input
@@ -108,9 +88,9 @@ class Register extends Component {
                     />
                     {this.renderErrorFor("password")}
                   </div>
-                  <button className="btn btn-primary">Register</button>
-                  <Link className="btn btn-primary btn-sm mb-3" to="/login">
-                  <button type="button">Login</button>
+                  <button className="btn btn-primary">Login</button>
+                  <Link className="btn btn-primary btn-sm mb-3" to="/register">
+                  <button type="button">Register</button>
                 </Link>
                 </form>
               </div>
@@ -122,4 +102,4 @@ class Register extends Component {
   }
 }
 
-export default withRouter(Register);
+export default withRouter(Login);

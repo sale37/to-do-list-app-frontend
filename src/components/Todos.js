@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { authService } from "./Services/AuthService";
+import { authService } from "../Services/AuthService";
 import { Link } from "react-router-dom";
 
 class Todos extends Component {
@@ -34,11 +34,11 @@ class Todos extends Component {
               <div className="card-body">
                 <ul className="list-group list-group-flush">
                   {todos.map(todo => (
-                    <Link
+                    <Link key={todo.id}
                       className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                       to={`/${todo.id}`}
                     >
-                      <li key={todo.description} style={todo.completed ? {textDecorationLine:'line-through'} : null}> {todo.description} </li>
+                      <li key={todo.id} style={todo.completed ? {textDecorationLine:'line-through'} : null}> {todo.description} </li>
                     </Link>
                   ))}
                 </ul>

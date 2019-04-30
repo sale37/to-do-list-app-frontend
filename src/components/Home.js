@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Logout from "./Logout";
-import { authService } from "./Services/AuthService";
+import { authService } from "../Services/AuthService";
 import Todos from "./Todos";
 import { Link } from "react-router-dom";
 
