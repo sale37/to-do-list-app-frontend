@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { authService } from "./Services/AuthService";
+import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Register extends Component {
   constructor(props) {
@@ -36,13 +38,10 @@ class Register extends Component {
 
     authService
       .register(user)
-      .then(res => this.handleSuccessRegister())
+      .then(res => history.push("/login"))
       .catch(res => this.setState({ registerError: true }));
   };
 
-  handleSuccessRegister = () => {
-    this.props.history.push("/login");
-  };
 
   hasErrorFor(field) {
     return this.state.errors[field];
@@ -110,6 +109,9 @@ class Register extends Component {
                     {this.renderErrorFor("password")}
                   </div>
                   <button className="btn btn-primary">Register</button>
+                  <Link className="btn btn-primary btn-sm mb-3" to="/login">
+                  <button type="button">Login</button>
+                </Link>
                 </form>
               </div>
             </div>
@@ -120,4 +122,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withRouter(Register);

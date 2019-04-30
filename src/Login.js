@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { authService } from "./Services/AuthService";
+import { withRouter } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -87,6 +89,9 @@ class Login extends Component {
                     {this.renderErrorFor("password")}
                   </div>
                   <button className="btn btn-primary">Login</button>
+                  <Link className="btn btn-primary btn-sm mb-3" to="/register">
+                  <button type="button">Register</button>
+                </Link>
                 </form>
               </div>
             </div>
@@ -97,4 +102,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
